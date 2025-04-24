@@ -1,20 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <div class="center-container">
+    <!-- City Input -->
+    <ion-item>
+      <ion-label position="floating">Enter City</ion-label>
+      <ion-input [(ngModel)]="city" type="text"></ion-input>
+    </ion-item>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Manual Search Button -->
+    <ion-button expand="block" color="primary" (click)="getWeather()">
+      <ion-icon slot="start" name="cloud-outline"></ion-icon>
+      Search Weather
+    </ion-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    
+
+    <!-- Weather Card -->
+    <ion-card *ngIf="temperature">
+      <img *ngIf="iconUrl" [src]="iconUrl" alt="Weather Icon" style="width: 80px; margin: 12px auto;" />
+      <ion-card-header>
+        <ion-card-title>Current Weather in {{ city }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{ temperature }}°C</h2>
+        <p>Condition: {{ weatherCondition }}</p>
+        <p>Humidity: {{ humidity }}%</p>
+        <p>Wind Speed: {{ windSpeed }} km/h</p>
+        <p class="weather-tip">{{ currentTip }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Settings Navigation -->
+    <ion-button expand="block" color="medium" (click)="navigateToSettings()">
+      <ion-icon slot="start" name="settings"></ion-icon>
+      Settings
+    </ion-button>
   </div>
+
+    
+    <ion-button expand="block" (click)="getCurrentLocationWeather()">
+    📍 Use My Location
+  </ion-button>
+  
+
+  
+
+
 </ion-content>

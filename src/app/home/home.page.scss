@@ -1,27 +1,138 @@
-#container {
+:host {
+  --ion-background-color: #f2f2f2;
+  --ion-text-color: #1c1c1e;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+
+ion-card {
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #fff4e6, #ffe8cc);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 183, 77, 0.2);
+  margin-top: 24px;
+  padding: 24px;
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  border: 1px solid #ffd8a8;
+  transition: transform 0.3s ease;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+ion-card:hover {
+  transform: translateY(-5px);
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+ion-card h2 {
+  font-size: 48px;
+  margin: 8px 0;
+  color: #ff922b; /* warm orange */
 }
 
-#container a {
-  text-decoration: none;
+ion-card p {
+  font-size: 18px;
+  margin: 8px 0;
+  color: #5f3dc4;
+}
+
+
+
+ion-input, ion-button {
+  max-width: 400px;
+  width: 100%;
+}
+
+ion-item {
+  max-width: 400px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+ion-button {
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+ion-header {
+  --background: #0077ff;
+  --color: #fff;
+}
+
+ion-title {
+  font-weight: bold;
+
+  :host-context(body):not(.dark-theme) {
+  --ion-background-color: #f2f2f2;
+  --ion-text-color: #1c1c1e;
+}
+
+:host-context(body.dark-theme) {
+  --ion-background-color: #1e1e1e;
+  --ion-text-color: #f5f5f5;
+}
+
+/* Apply card styles based on theme */
+:host-context(body.dark-theme) ion-card {
+  background: linear-gradient(135deg, #2c2c2c, #1f1f1f);
+  border: 1px solid #444;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(body.dark-theme) ion-card h2 {
+  color: #ffd43b; /* golden yellow */
+}
+
+:host-context(body.dark-theme) ion-card p {
+  color: #91a7ff; /* soft blue */
+}
+
+/* Header theming */
+:host-context(body.dark-theme) ion-header {
+  --background: #333;
+  --color: #fff;
+}
+
+/* styles.css */
+
+:root {
+  --button-bg: #005eff;
+  --button-text: #ffffff;
+}
+
+body.dark-theme {
+  --button-bg: #444;
+  --button-text: #f0f0f0;
+}
+
+// .weather-tip {
+//   animation: fadeIn 0.5s ease-in;
+// }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 16px;
+}
+
+.weather-tip {
+  font-style: italic;
+  color: #007AFF; /* A nice accent color */
+}
+
 }

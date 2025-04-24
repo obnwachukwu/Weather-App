@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button class="theme-toggle" size="default" fill="solid" (click)="toggleTheme()" color="primary">
+    <ion-icon slot="start" [name]="isDarkMode ? 'moon' : 'sunny'"></ion-icon>
+    {{ isDarkMode ? 'You are using Dark Mode' : 'You are using Light Mode' }}
+  </ion-button>
+  
+<div class="toggle-wrapper"> <!-- Same wrapper for positioning consistency -->
+    <ion-button class="theme-toggle" size="default" fill="solid" (click)="goHome()" color="primary">
+      <ion-icon slot="start" name="home"></ion-icon>
+      Back to Home
+    </ion-button>
+</div>
+</ion-content>
