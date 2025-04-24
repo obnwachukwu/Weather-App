@@ -4,7 +4,7 @@ import { IonApp, IonRouterOutlet, IonHeader,IonToolbar,IonTitle,IonButtons,IonBu
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet, IonHeader,IonToolbar,IonTitle,IonButtons,IonButton],
+  imports: [IonApp, IonRouterOutlet,],
 })
 export class AppComponent {
   constructor() {}

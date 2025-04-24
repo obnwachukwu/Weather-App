@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Geolocation } from '@capacitor/geolocation';
 import { 
   IonHeader, 
   IonToolbar, 
@@ -49,6 +50,7 @@ export class HomePage implements OnInit {
   windSpeed!: number;
   iconUrl!: string;
 
+  //Weather tips that will be updated every 15seconds
   weatherTips: string[] = [
     "Carry an umbrella if the chance of rain is above 50%. ☔",
     "Stay hydrated on hot days! 💧",
@@ -67,6 +69,7 @@ export class HomePage implements OnInit {
     this.router.navigate(['/search']);
   }
 
+  //Navigation to Settings Page
   navigateToSettings() {
     this.router.navigate(['/settings']);
   }
@@ -95,45 +98,44 @@ export class HomePage implements OnInit {
     });
   }
 
-  async getCurrentLocationWeather() {
-    if (!('geolocation' in navigator)) {
-      alert('Geolocation is not available in your browser');
-      return;
-    }
-  
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-  
-        const apiKey = 'a40bba027d00faaeddba478f3de5a477';
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  
-        this.http.get<any>(url).subscribe({
-          next: (data) => {
-            this.city = data.name;
-            this.temperature = Math.round(data.main.temp);
-            this.weatherCondition = data.weather[0].description;
-            this.humidity = data.main.humidity;
-            this.windSpeed = data.wind.speed;
-            this.iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-            this.currentTip = this.getWeatherTip(this.weatherCondition);
-            localStorage.setItem('last-location', this.city);
-          },
-          error: (err) => {
-            console.error('Failed to fetch weather from coordinates.', err);
-            alert('Could not fetch weather for your current location.');
-          }
-        });
-      },
-      (error) => {
-        console.error('Geolocation error', error);
-        alert('Could not get your location.');
-      }
-    );
-  }
-  
 
+
+  async getCurrentLocationWeather() {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const apiKey = 'a40bba027d00faaeddba478f3de5a477';
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+      this.http.get<any>(url).subscribe({
+        next: (data) => {
+          // If the API successfully returns weather data, update properties
+          this.city = data.name;
+          this.temperature = Math.round(data.main.temp);
+          this.weatherCondition = data.weather[0].description;
+          this.humidity = data.main.humidity;
+          this.windSpeed = data.wind.speed;
+          this.iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+          // Dynamically set the weather tip based on the current condition
+          this.currentTip = this.getWeatherTip(this.weatherCondition);
+
+           // Store the last location for persistence across sessions
+          localStorage.setItem('last-location', this.city);
+        },
+        error: (err) => {
+          console.error('Failed to fetch weather from coordinates.', err);
+          alert('Could not fetch weather for your current location.');
+        }
+      });
+    } catch (error) {
+      console.error('Geolocation error', error);
+      alert('Could not get your location.');
+    }
+  }
+  //Get the location of the last city using localStorage
   ngOnInit() {
     const lastCity = localStorage.getItem('last-location');
     if (lastCity) {
