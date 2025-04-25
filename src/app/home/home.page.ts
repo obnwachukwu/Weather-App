@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
 
   // Fetch Weather Data from API
   getWeather() {
-    const apiKey = 'a40bba027d00faaeddba478f3de5a477'; // Replace with your actual API key
+    const apiKey = 'a40bba027d00faaeddba478f3de5a477'; // Open WeatherMap API key
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${apiKey}`;
     localStorage.setItem('last-location', this.city);
 
@@ -99,7 +99,8 @@ export class HomePage implements OnInit {
   }
 
 
-
+  // Fetch Weather Data from Geolocation
+  // This function uses Geolocation to get the user's current location
   async getCurrentLocationWeather() {
     try {
       const position = await Geolocation.getCurrentPosition();

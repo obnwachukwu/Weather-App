@@ -11,6 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
+  <!--ion button for dark mode and light mode-->
   <ion-button class="theme-toggle" size="default" fill="solid" (click)="toggleTheme()" color="primary">
     <ion-icon slot="start" [name]="isDarkMode ? 'moon' : 'sunny'"></ion-icon>
     {{ isDarkMode ? 'You are using Dark Mode' : 'You are using Light Mode' }}
